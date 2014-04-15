@@ -1,3 +1,0 @@
-#!/bin/sh
-make CROSS_COMPILE=arm-linux-gnueabihf- ARCH=arm distclean
-rm -rf ./am335x_evm
