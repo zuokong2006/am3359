@@ -1,5 +1,5 @@
-EXEC	= pipe
-OBJS    = pipe.o
+EXEC	= led
+OBJS    = led.o
 
 CROSS	= arm-linux-gnueabihf-
 CC		= $(CROSS)gcc 
