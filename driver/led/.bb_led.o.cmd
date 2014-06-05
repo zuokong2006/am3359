@@ -402,10 +402,6 @@ deps_/home/zuokong/bb/driver/led/bb_led.o := \
     $(wildcard include/config/have/mod/arch/specific.h) \
     $(wildcard include/config/modules/use/elf/rel.h) \
     $(wildcard include/config/modules/use/elf/rela.h) \
-  include/linux/miscdevice.h \
-  /home/zuokong/bb/kernel/kernel/include/uapi/linux/major.h \
-  include/linux/delay.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/delay.h \
   include/linux/gpio.h \
     $(wildcard include/config/generic/gpio.h) \
     $(wildcard include/config/arch/have/custom/gpio/h.h) \
@@ -582,60 +578,6 @@ deps_/home/zuokong/bb/driver/led/bb_led.o := \
   include/linux/radix-tree.h \
   include/linux/seq_file.h \
   include/linux/pinctrl/pinctrl-state.h \
-  include/linux/mm.h \
-    $(wildcard include/config/x86.h) \
-    $(wildcard include/config/ppc.h) \
-    $(wildcard include/config/parisc.h) \
-    $(wildcard include/config/ksm.h) \
-    $(wildcard include/config/debug/vm/rb.h) \
-    $(wildcard include/config/arch/uses/numa/prot/none.h) \
-    $(wildcard include/config/debug/pagealloc.h) \
-    $(wildcard include/config/hibernation.h) \
-    $(wildcard include/config/hugetlbfs.h) \
-  include/linux/debug_locks.h \
-    $(wildcard include/config/debug/locking/api/selftests.h) \
-  include/linux/range.h \
-  include/linux/bit_spinlock.h \
-  include/linux/shrinker.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/pgtable.h \
-    $(wildcard include/config/highpte.h) \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/proc-fns.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/glue-proc.h \
-    $(wildcard include/config/cpu/arm7tdmi.h) \
-    $(wildcard include/config/cpu/arm720t.h) \
-    $(wildcard include/config/cpu/arm740t.h) \
-    $(wildcard include/config/cpu/arm9tdmi.h) \
-    $(wildcard include/config/cpu/arm920t.h) \
-    $(wildcard include/config/cpu/arm922t.h) \
-    $(wildcard include/config/cpu/arm925t.h) \
-    $(wildcard include/config/cpu/arm926t.h) \
-    $(wildcard include/config/cpu/arm940t.h) \
-    $(wildcard include/config/cpu/arm946e.h) \
-    $(wildcard include/config/cpu/arm1020.h) \
-    $(wildcard include/config/cpu/arm1020e.h) \
-    $(wildcard include/config/cpu/arm1022.h) \
-    $(wildcard include/config/cpu/arm1026.h) \
-    $(wildcard include/config/cpu/mohawk.h) \
-    $(wildcard include/config/cpu/feroceon.h) \
-    $(wildcard include/config/cpu/v6k.h) \
-    $(wildcard include/config/cpu/v7.h) \
-  include/asm-generic/pgtable-nopud.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/pgtable-hwdef.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/pgtable-2level-hwdef.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/pgtable-2level.h \
-  include/asm-generic/pgtable.h \
-  include/linux/page-flags.h \
-    $(wildcard include/config/pageflags/extended.h) \
-    $(wildcard include/config/arch/uses/pg/uncached.h) \
-    $(wildcard include/config/memory/failure.h) \
-    $(wildcard include/config/swap.h) \
-    $(wildcard include/config/s390.h) \
-  include/linux/huge_mm.h \
-  include/linux/vmstat.h \
-    $(wildcard include/config/vm/event/counters.h) \
-    $(wildcard include/config/hotplug.h) \
-  include/linux/vm_event_item.h \
-    $(wildcard include/config/migration.h) \
   include/linux/fs.h \
     $(wildcard include/config/fs/posix/acl.h) \
     $(wildcard include/config/quota.h) \
@@ -644,14 +586,17 @@ deps_/home/zuokong/bb/driver/led/bb_led.o := \
     $(wildcard include/config/debug/writecount.h) \
     $(wildcard include/config/file/locking.h) \
     $(wildcard include/config/fs/xip.h) \
+    $(wildcard include/config/migration.h) \
   include/linux/kdev_t.h \
   include/uapi/linux/kdev_t.h \
   include/linux/dcache.h \
   include/linux/rculist_bl.h \
   include/linux/list_bl.h \
+  include/linux/bit_spinlock.h \
   include/linux/path.h \
   include/linux/semaphore.h \
   /home/zuokong/bb/kernel/kernel/include/uapi/linux/fiemap.h \
+  include/linux/shrinker.h \
   include/linux/migrate_mode.h \
   include/linux/percpu-rwsem.h \
   include/linux/blk_types.h \
@@ -677,80 +622,7 @@ deps_/home/zuokong/bb/driver/led/bb_led.o := \
   /home/zuokong/bb/kernel/kernel/arch/arm/include/uapi/asm/fcntl.h \
   /home/zuokong/bb/kernel/kernel/include/uapi/asm-generic/fcntl.h \
   include/linux/err.h \
-  include/linux/slab.h \
-    $(wildcard include/config/slab/debug.h) \
-    $(wildcard include/config/failslab.h) \
-    $(wildcard include/config/slob.h) \
-    $(wildcard include/config/slub.h) \
-    $(wildcard include/config/debug/slab.h) \
-    $(wildcard include/config/slab.h) \
-  include/linux/slab_def.h \
-    $(wildcard include/config/memcg/kmem.h) \
-  include/linux/kmalloc_sizes.h \
   include/linux/cdev.h \
-  include/linux/pci.h \
-    $(wildcard include/config/pci/iov.h) \
-    $(wildcard include/config/pcieaspm.h) \
-    $(wildcard include/config/pci/msi.h) \
-    $(wildcard include/config/pci/ats.h) \
-    $(wildcard include/config/pci.h) \
-    $(wildcard include/config/pcieportbus.h) \
-    $(wildcard include/config/pcieaer.h) \
-    $(wildcard include/config/pcie/ecrc.h) \
-    $(wildcard include/config/ht/irq.h) \
-    $(wildcard include/config/pci/domains.h) \
-    $(wildcard include/config/pci/quirks.h) \
-    $(wildcard include/config/pci/mmconfig.h) \
-    $(wildcard include/config/hotplug/pci.h) \
-    $(wildcard include/config/eeh.h) \
-  include/linux/io.h \
-    $(wildcard include/config/has/ioport.h) \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/io.h \
-    $(wildcard include/config/need/mach/io/h.h) \
-    $(wildcard include/config/pcmcia/soc/common.h) \
-    $(wildcard include/config/isa.h) \
-    $(wildcard include/config/pccard.h) \
-  include/asm-generic/pci_iomap.h \
-    $(wildcard include/config/no/generic/pci/ioport/map.h) \
-    $(wildcard include/config/generic/pci/iomap.h) \
-  include/linux/irqreturn.h \
-  include/uapi/linux/pci.h \
-  /home/zuokong/bb/kernel/kernel/include/uapi/linux/pci_regs.h \
-  include/linux/pci_ids.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/pci.h \
-  include/asm-generic/pci-dma-compat.h \
-  include/linux/dma-mapping.h \
-    $(wildcard include/config/has/dma.h) \
-    $(wildcard include/config/arch/has/dma/set/coherent/mask.h) \
-    $(wildcard include/config/have/dma/attrs.h) \
-    $(wildcard include/config/need/dma/map/state.h) \
-  include/linux/dma-attrs.h \
-  include/linux/dma-direction.h \
-  include/linux/scatterlist.h \
-    $(wildcard include/config/debug/sg.h) \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/scatterlist.h \
-    $(wildcard include/config/arm/has/sg/chain.h) \
-  include/asm-generic/scatterlist.h \
-    $(wildcard include/config/need/sg/dma/length.h) \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/dma-mapping.h \
-  include/linux/dma-debug.h \
-    $(wildcard include/config/dma/api/debug.h) \
-  include/asm-generic/dma-coherent.h \
-    $(wildcard include/config/have/generic/dma/coherent.h) \
-  include/asm-generic/dma-mapping-common.h \
-  include/linux/kmemcheck.h \
-  include/asm-generic/pci-bridge.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/mach/pci.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/uaccess.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/unified.h \
-    $(wildcard include/config/arm/asm/unified.h) \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/unistd.h \
-    $(wildcard include/config/oabi/compat.h) \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/uapi/asm/unistd.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/system.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/switch_to.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/system_info.h \
-  /home/zuokong/bb/kernel/kernel/arch/arm/include/asm/system_misc.h \
 
 /home/zuokong/bb/driver/led/bb_led.o: $(deps_/home/zuokong/bb/driver/led/bb_led.o)
 

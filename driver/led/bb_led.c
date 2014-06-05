@@ -1,38 +1,61 @@
 
 #include <linux/init.h>
 #include <linux/module.h>
-#include <linux/miscdevice.h>
-#include <linux/delay.h>
+#include <linux/timer.h>
 #include <linux/gpio.h>
-#include <linux/kernel.h>
-#include <linux/mm.h>
 #include <linux/fs.h>
-#include <linux/types.h>
-#include <linux/delay.h>
-#include <linux/moduleparam.h>
-#include <linux/slab.h>
-#include <linux/errno.h>
-#include <linux/ioctl.h>
 #include <linux/cdev.h>
-#include <linux/string.h>
-#include <linux/list.h>
-#include <linux/pci.h>
-#include <asm/uaccess.h>
-#include <asm/atomic.h>
-#include <asm/unistd.h>
-#include <asm/io.h>
-#include <asm/system.h>
-#include <asm/uaccess.h>
-//#include <asm/irq.h>
+#include <linux/ioctl.h>
 
-
+#define TIMEOUT			2 /* 2秒 */
+#define TIMER_EXPIRES	(jiffies+TIMEOUT*HZ)
 /* 设备名 */
 #define DEVICE_NAME		"leds"
 
 /* led */
-static unsigned long bb_led_tab[] = {53, 54, 55, 56};
+static const unsigned long bb_led_tab[] = {53, 54, 55, 56};
+static struct timer_list s_stTimer = {0};
+static int lastio = 0;
 
-/* ioctl function */
+dev_t led_dev;
+struct cdev *led_cdev;
+
+
+/* 定时到所执行的函数 */
+static void timer_cb(unsigned long ulArg)
+{
+	int io = 0;
+
+	//printk("Time up!\n");
+	mod_timer(&s_stTimer, TIMER_EXPIRES);
+	io = gpio_get_value(bb_led_tab[3]);
+	//printk("io=%d\r\n", io);
+	if(0 != lastio)
+	{
+		lastio = 0;
+	}
+	else
+	{
+		lastio = 1;
+	}
+	gpio_set_value(bb_led_tab[3], lastio);
+}
+
+/* open */
+static int bb_led_open(struct inode *inode, struct file *filp)
+{
+	printk("led device is open!\r\n");
+	return 0;
+}
+
+/* release */
+static int bb_led_release(struct inode *inode, struct file *filp)
+{
+	printk("led device is release!\r\n");
+	return 0;
+}
+
+/* ioctl */
 static int bb_led_ioctl(struct file *file, unsigned int cmd, unsigned long arg) 
 {
 	int ret = 0;
@@ -42,7 +65,6 @@ static int bb_led_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 	{
 		return -1;
 	}
-	
 	switch(cmd)
 	{
 		case 0:
@@ -65,46 +87,66 @@ static int bb_led_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 static struct file_operations dev_fops = 
 {
 	.owner = THIS_MODULE,
+	.open = bb_led_open,
+	.release = bb_led_release,
 	.unlocked_ioctl = bb_led_ioctl, 
-};
-static struct miscdevice misc = 
-{
-	.minor = MISC_DYNAMIC_MINOR,
-	.name = DEVICE_NAME,
-	.fops = &dev_fops,
 };
 
 /* 模块加载函数 */
 static int __init bb_led_init(void)
 {
-	int ret = 0, i = 0;
-	
-	/* 设置GPIO */
-	for(i=0; i<4; i++)
+	int ret = 0;
+
+	/* */
+	ret = alloc_chrdev_region(&led_dev, 0, 1, DEVICE_NAME);
+	if(0 > ret)
 	{
-		/* 设置端口为输出状态，内核已初始化 */
-		gpio_set_value(bb_led_tab[i], 1);
+		printk("alloc_chrdev_region return < 0\r\n");
+		return -1;
 	}
-	/*注册混杂型字符设备驱动*/
-    ret = misc_register(&misc);
-	printk("led driver module init!\n");
+	led_cdev = cdev_alloc();
+	if(NULL == led_cdev)
+	{
+		printk("register led_cdev error!\r\n");
+		return -1;
+	}
+	cdev_init(led_cdev, &dev_fops);
+	led_cdev->ops = &dev_fops;
+	led_cdev->owner = THIS_MODULE;
+	if(cdev_add(led_cdev, led_dev, 1))
+	{
+		printk("someting wrong when adding led_cdev!\r\n");
+		return -1;
+	}
+	else
+	{
+		printk("success adding led_cdev!\r\n");
+	}
 	
-	return ret;
+	gpio_set_value(bb_led_tab[3], 1);
+	gpio_set_value(bb_led_tab[2], 1);
+	/* 初始化定时器 */
+	init_timer(&s_stTimer);
+	s_stTimer.expires = TIMER_EXPIRES;
+	s_stTimer.function = timer_cb;
+	s_stTimer.data = 0;
+	add_timer(&s_stTimer);
+	printk("led driver init!\n");
+	
+	return 0;
 }
 
 /* 模块卸载函数 */
 static void __exit bb_led_exit(void)
 {
-	int i = 0;
+	gpio_set_value(bb_led_tab[3], 0);
+	gpio_set_value(bb_led_tab[2], 0);
+	del_timer(&s_stTimer);
 	
-	for(i=0; i<4; i++)
-	{
-		/* 设置端口为输出状态，内核已初始化 */
-		gpio_set_value(bb_led_tab[i], 0);
-	}
-	/*注销混杂型字符设备驱动*/
-    misc_deregister(&misc);
-	printk("led driver module exit!\n");
+	cdev_del(led_cdev);
+	unregister_chrdev_region(led_dev, 1);
+	
+	printk("led driver exit!\n");
 }
 
 module_init(bb_led_init);
@@ -112,7 +154,7 @@ module_exit(bb_led_exit);
 
 MODULE_AUTHOR("zuokong");
 MODULE_LICENSE("Dual BSD/GPL");
-MODULE_DESCRIPTION("BB led driver");
+MODULE_DESCRIPTION("Timer test module");
 
 
 
