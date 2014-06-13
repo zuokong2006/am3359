@@ -17,6 +17,7 @@ int32 main(int32 argc, int8 *argv[])
 {
 	int32 fd = 0, len = 0;
 	int8 *homedir, *filedir;
+	int8 buf[1024] = {0};
 	
 	/* 输入参数判断 */
 	if(2 != argc)
@@ -65,6 +66,25 @@ int32 main(int32 argc, int8 *argv[])
 	/* 关闭文件 */
 	free(filedir);
 	close(fd);
+	
+	
+	while(1)
+	{
+		fd = open("/proc/uptime", O_RDONLY);
+		if(0 > fd)
+		{
+			DEBUG_MSG("open /proc/uptime error\r\n");
+			exit(1);
+		}
+		memset(buf, 0, 1024);
+		len = read(fd, buf, 1024);
+		if(0 < len)
+		{
+			DEBUG_MSG("uptime:%s", buf);
+		}
+		close(fd);
+		sleep(1);
+	}
 	
 	return 0;
 }

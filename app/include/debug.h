@@ -49,7 +49,7 @@
 #elif DEBUG_MSG_EN == 3 //打印文件名、行号、函数名
  #define DEBUG_MSG(format,arg...) do{ \
          print_run_time(); \
-         printf("[%s:%d:%s] "format, __FILE__, __LINE__, __FUNCTION__, ##arg); \
+         printf("[%s:%s:%d] "format, __FILE__, __FUNCTION__, __LINE__, ##arg); \
         } while(0)
 #else
  #define DEBUG_MSG(arg)      ((void)0)

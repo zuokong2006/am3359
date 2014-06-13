@@ -63,8 +63,8 @@ void print_run_time(void)
     cur_time = time((time_t *)0);
     pstTm = localtime(&cur_time);
     /* 打印时间 */
-    printf("[%04d-%02d-%02d %02d:%02d:%02d] ", pstTm->tm_year, pstTm->tm_mon, \
-                  pstTm->tm_mday, pstTm->tm_hour, pstTm->tm_min, pstTm->tm_sec);
+    printf("[%04d-%02d-%02d %02d:%02d:%02d] ", pstTm->tm_year+1900, pstTm->tm_mon+1, \
+           pstTm->tm_mday, pstTm->tm_hour, pstTm->tm_min, pstTm->tm_sec);
 }
 
 /********************************end of file***********************************/
