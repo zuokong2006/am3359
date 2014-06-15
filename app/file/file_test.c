@@ -10,8 +10,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "../include/debug.h"
-#include "../include/deftype.h"
+#include "debug.h"
+#include "deftype.h"
 
 int32 main(int32 argc, int8 *argv[]) 
 {
