@@ -22,6 +22,7 @@
 #include <time.h>
 #include <errno.h>
 #include <unistd.h>
+#include <sys/time.h>
 #include "../include/deftype.h"
 
 /******************************************************************************/
@@ -56,15 +57,17 @@
 */
 void print_run_time(void)
 {
-    time_t cur_time;
+    //time_t cur_time;
+    struct timeval cur_time;
     struct tm *pstTm;
     
     /* 获取当前时间 */
-    cur_time = time((time_t *)0);
-    pstTm = localtime(&cur_time);
+    //cur_time = time((time_t *)0);
+    gettimeofday(&cur_time, NULL);
+    pstTm = localtime(&(cur_time.tv_sec));
     /* 打印时间 */
-    printf("[%04d-%02d-%02d %02d:%02d:%02d] ", pstTm->tm_year+1900, pstTm->tm_mon+1, \
-           pstTm->tm_mday, pstTm->tm_hour, pstTm->tm_min, pstTm->tm_sec);
+    printf("[%04d-%02d-%02d %02d:%02d:%02d:%06ld] ", pstTm->tm_year+1900, pstTm->tm_mon+1, \
+        pstTm->tm_mday, pstTm->tm_hour, pstTm->tm_min, pstTm->tm_sec, cur_time.tv_usec);
 }
 
 /********************************end of file***********************************/

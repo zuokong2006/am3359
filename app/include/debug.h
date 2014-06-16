@@ -29,7 +29,7 @@
 #define PRINTF_MSG_EN                   (1)
 
 /*! 配置是否输出调试信息 */
-#define DEBUG_MSG_EN                    (3)
+#define DEBUG_MSG_EN                    (2)
 
 /*! printf 宏定义 */
 #if PRINTF_MSG_EN > 0

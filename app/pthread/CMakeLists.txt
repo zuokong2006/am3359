@@ -21,6 +21,16 @@ ELSE()
  SET(CMAKE_C_COMPILER arm-linux-gnueabihf-gcc)
 ENDIF()
 
+#
+#SET(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+#SET(CMAKE_C_FLAGS "-lpthread")
+#SET(CMAKE_C_FLAGS_DEBUG "-lpthread")
+#SET(CMAKE_C_FLAGS_RELEASE "-lpthread")
+MESSAGE(STATUS "c flags: " ${CMAKE_C_FLAGS})
+
+#
+FIND_PACKAGE(Threads REQUIRED)
+
 #使用命令ADD_SUBDIRECTORY指明本项目包含一个子目录test
 ADD_SUBDIRECTORY(test)
 
@@ -31,8 +41,11 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/test)
 #将当前目录中的源文件名称赋值给变量DIR_SRCS
 AUX_SOURCE_DIRECTORY(. DIR_SRCS)
 
-#指示变量DIR_SRCS中的源文件需要编译成一个名称为file_test的可执行文件
+#指示变量DIR_SRCS中的源文件需要编译成一个名称为pthread_test的可执行文件
 ADD_EXECUTABLE(pthread_test ${DIR_SRCS})
 
-#指明可执行文件file_test需要连接一个名为common的链接库
+#指明可执行文件需要连接的链接库
 TARGET_LINK_LIBRARIES(pthread_test ${PROJECT_SOURCE_DIR}/../common/libcommon.a)
+TARGET_LINK_LIBRARIES(pthread_test test)
+TARGET_LINK_LIBRARIES(pthread_test ${CMAKE_THREAD_LIBS_INIT})
+
