@@ -21,15 +21,17 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <errno.h>
 
 /******************************************************************************/
 /*                           宏定义                                           */
 /******************************************************************************/
 /*! 配置是否输出调试信息 */
 #define PRINTF_MSG_EN                   (1)
-
 /*! 配置是否输出调试信息 */
 #define DEBUG_MSG_EN                    (2)
+/*! 配置是否输出错误信息 */
+#define ERROR_MSG_EN                    (1)
 
 /*! printf 宏定义 */
 #if PRINTF_MSG_EN > 0
@@ -53,6 +55,16 @@
         } while(0)
 #else
  #define DEBUG_MSG(arg)      ((void)0)
+#endif
+
+/*! 错误信息 */
+#if ERROR_MSG_EN == 1
+ #define ERROR_MSG(format,arg...) do{ \
+         print_run_time(); \
+         printf("[%s:%d] [E:%s] "format, __FILE__, __LINE__, strerror(errno), ##arg); \
+        } while(0)
+#else
+ #define ERROR_MSG()        ((void)0)
 #endif
 
 /******************************************************************************/

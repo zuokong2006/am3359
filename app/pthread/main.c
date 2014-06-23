@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
     struct arg_st stArg;
 
     DEBUG_MSG("start main function!\r\n");
+    errno = 2;
+    ERROR_MSG("errno msg test!\r\n");
     /* 创建二进制信号量 */
     res = sem_init(&bin_msg, 0, 0);
     if(0 != res)
