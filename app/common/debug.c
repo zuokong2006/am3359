@@ -49,25 +49,39 @@
 *
 *  \brief     打印时间
 *
-*  \param     无 
+*  \param     pFile [in] __FILE__
 *
 *  \exception 无
 *
 *  \return    无
 */
-void print_run_time(void)
+void print_run_time(char *pFile, int lLine)
 {
     //time_t cur_time;
     struct timeval cur_time;
     struct tm *pstTm;
+    int lStringSize = 0, i = 0;
     
     /* 获取当前时间 */
     //cur_time = time((time_t *)0);
     gettimeofday(&cur_time, NULL);
     pstTm = localtime(&(cur_time.tv_sec));
     /* 打印时间 */
-    printf("[%04d-%02d-%02d %02d:%02d:%02d:%06ld] ", pstTm->tm_year+1900, pstTm->tm_mon+1, \
-        pstTm->tm_mday, pstTm->tm_hour, pstTm->tm_min, pstTm->tm_sec, cur_time.tv_usec);
+    printf("[%04d-%02d-%02d %02d:%02d:%02d:%03ld] ", pstTm->tm_year+1900, pstTm->tm_mon+1, \
+        pstTm->tm_mday, pstTm->tm_hour, pstTm->tm_min, pstTm->tm_sec, (cur_time.tv_usec)/1000);
+
+    /* 打印文件名及其行号 */
+    /*! 计算__FILE__字符串长度 */
+    lStringSize = strlen(pFile);
+    /*! 只打印最后一个“\”后的内容 */
+    for(i = (lStringSize - 1); i != 0; i--)
+    {
+        if('/' == *(pFile + i))
+        {
+            break;
+        }
+    }
+    printf("[%s:%d] ", (pFile+i), lLine);
 }
 
 /********************************end of file***********************************/

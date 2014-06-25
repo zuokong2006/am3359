@@ -45,13 +45,13 @@
  #define PRINTF_MSG(arg...)     printf(##arg)
 #elif DEBUG_MSG_EN == 2 //打印文件名、行号
  #define DEBUG_MSG(format,arg...) do{ \
-         print_run_time(); \
-         printf("[%s:%d] "format, __FILE__, __LINE__, ##arg); \
+         print_run_time(__FILE__, __LINE__); \
+         printf(format, ##arg); \
         } while(0)
 #elif DEBUG_MSG_EN == 3 //打印文件名、行号、函数名
  #define DEBUG_MSG(format,arg...) do{ \
-         print_run_time(); \
-         printf("[%s:%s:%d] "format, __FILE__, __FUNCTION__, __LINE__, ##arg); \
+         print_run_time(__FILE__, __LINE__); \
+         printf("[F:%s] "format, __FUNCTION__, ##arg); \
         } while(0)
 #else
  #define DEBUG_MSG(arg)      ((void)0)
@@ -60,8 +60,8 @@
 /*! 错误信息 */
 #if ERROR_MSG_EN == 1
  #define ERROR_MSG(format,arg...) do{ \
-         print_run_time(); \
-         printf("[%s:%d] [E:%s] "format, __FILE__, __LINE__, strerror(errno), ##arg); \
+         print_run_time(__FILE__, __LINE__); \
+         printf("[E:%s] "format, strerror(errno), ##arg); \
         } while(0)
 #else
  #define ERROR_MSG()        ((void)0)
@@ -70,7 +70,7 @@
 /******************************************************************************/
 /*                          外部接口函数声明                                  */
 /******************************************************************************/
-void print_run_time(void);
+void print_run_time(char *pFile, int lLine);
 
 #endif /*!< end __DEBUG_H */
 
