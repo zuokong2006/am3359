@@ -1,9 +1,9 @@
-#dir: app/file
-#datte: 2014-06-13
+#dir: app/i2c
+#datte: 2014-07-15
 #author: zuokongxiao
 
 #工程名称
-PROJECT(fifo)
+PROJECT(i2c)
 
 #CMAKE版本
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
@@ -43,13 +43,11 @@ AUX_SOURCE_DIRECTORY(. DIR_SRCS)
 
 #指示变量DIR_SRCS中的源文件需要编译成一个名称为pthread_test的可执行文件
 #ADD_EXECUTABLE(pthread_test ${DIR_SRCS})
-ADD_EXECUTABLE(client client)
-ADD_EXECUTABLE(server server)
+ADD_EXECUTABLE(i2c i2c)
 
 #指明可执行文件需要连接的链接库
-TARGET_LINK_LIBRARIES(client ${PROJECT_SOURCE_DIR}/../common/libcommon.a)
+TARGET_LINK_LIBRARIES(i2c ${PROJECT_SOURCE_DIR}/../common/libcommon.a)
 #TARGET_LINK_LIBRARIES(pthread_test test)
 #TARGET_LINK_LIBRARIES(pthread_test ${CMAKE_THREAD_LIBS_INIT})
 
-TARGET_LINK_LIBRARIES(server ${PROJECT_SOURCE_DIR}/../common/libcommon.a)
 
