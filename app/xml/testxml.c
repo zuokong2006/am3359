@@ -7,10 +7,10 @@
 #include <semaphore.h>
 #include <math.h>
 
-#include "libxml/xmlmemory.h"
-#include "libxml/parser.h"
-#include "libxml/xpath.h"
-#include "libxml/xmlschemastypes.h"
+#include <libxml/parser.h>
+#include <libxml/xmlmemory.h>
+//#include <libxml/xpath.h>
+//#include <libxml/xmlschemastypes.h>
 
 #include "deftype.h"
 #include "debug.h"

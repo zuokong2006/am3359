@@ -36,7 +36,7 @@ MESSAGE(STATUS "c flags: " ${CMAKE_C_FLAGS})
 
 #向工程添加头文件搜索路径
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../include)
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../lib/libxml2)
+INCLUDE_DIRECTORIES(/usr/local/include/libxml2)
 
 #将当前目录中的源文件名称赋值给变量DIR_SRCS
 AUX_SOURCE_DIRECTORY(. DIR_SRCS)
@@ -46,7 +46,7 @@ ADD_EXECUTABLE(testxml ${DIR_SRCS})
 
 #指明可执行文件需要连接的链接库
 TARGET_LINK_LIBRARIES(testxml ${PROJECT_SOURCE_DIR}/../common/libcommon.a)
-TARGET_LINK_LIBRARIES(testxml ${PROJECT_SOURCE_DIR}/../lib/libxml2/libxml2.so)
+TARGET_LINK_LIBRARIES(testxml /usr/local/lib/libxml2.so)
 #TARGET_LINK_LIBRARIES(testxml ${CMAKE_THREAD_LIBS_INIT})
 
 
