@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "\r\n****************"
-./configure --host=arm-linux-gnueabihf CC=arm-linux-gnueabihf-gcc --prefix=$HOME/bb/app/lib/libxml2
+./configure --host=arm-linux-gnueabihf CC=arm-linux-gnueabihf-gcc --prefix=/usr/arm/lib/libxml2
 make
 make install
 
