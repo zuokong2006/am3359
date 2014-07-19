@@ -54,15 +54,27 @@ int main(int argc, char *argv[])
             str = xmlNodeGetContent(cur);
             DEBUG_MSG("D:hardware-> %s\r\n", str);
             xmlFree(str);
+            break;
         }
+        cur = cur->next;
+    }
+    if(NULL == cur)
+    {
+        DEBUG_MSG("E:is not hardware node.\r\n");
+        xmlFreeDoc(doc);
+        exit(0);
+    }
+
+    cur = cur->children;
+    while(NULL != cur)
+    {
+        str = xmlNodeGetContent(cur);
+        DEBUG_MSG("D:hardware children-> %s\r\n", str);
+        xmlFree(str);
         cur = cur->next;
     }
 
     xmlFreeDoc(doc);
-
-    //double answer;
-    //answer = pow(2, 10);
-    //printf("2^10 = %f\n", answer);
 
     exit(0);
 }
