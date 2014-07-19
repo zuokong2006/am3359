@@ -5,11 +5,6 @@ pwd
 cmake -D TARGET_P=arm ./
 make
 
-cd $HOME/bb/app/lib/libxml2
-pwd
-cmake -D TARGET_P=arm ./
-make
-
 cd $HOME/bb/app/xml
 pwd
 cmake -D TARGET_P=arm ./
