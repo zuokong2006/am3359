@@ -46,7 +46,9 @@ ENDIF()
 AUX_SOURCE_DIRECTORY(. DIR_SRCS)
 
 #指示变量DIR_SRCS中的源文件需要编译成一个名称为testxml的可执行文件
-ADD_EXECUTABLE(testxml ${DIR_SRCS})
+ADD_EXECUTABLE(testxml testxml)
+ADD_EXECUTABLE(parsexmlfile parsexmlfile)
+ADD_EXECUTABLE(createxmlfile createxmlfile)
 
 #指明可执行文件需要连接的链接库
 #TARGET_LINK_LIBRARIES(testxml ${CMAKE_THREAD_LIBS_INIT})
@@ -57,8 +59,17 @@ ELSE()
  TARGET_LINK_LIBRARIES(testxml /usr/arm/lib/libxml2/lib/libxml2.so)
 ENDIF()
 
+TARGET_LINK_LIBRARIES(parsexmlfile ${PROJECT_SOURCE_DIR}/../common/libcommon.a)
+IF(${TARGET_P} MATCHES "x86")
+ TARGET_LINK_LIBRARIES(parsexmlfile /usr/local/lib/libxml2.so)
+ELSE()
+ TARGET_LINK_LIBRARIES(parsexmlfile /usr/arm/lib/libxml2/lib/libxml2.so)
+ENDIF()
 
-
-
-
+TARGET_LINK_LIBRARIES(createxmlfile ${PROJECT_SOURCE_DIR}/../common/libcommon.a)
+IF(${TARGET_P} MATCHES "x86")
+ TARGET_LINK_LIBRARIES(createxmlfile /usr/local/lib/libxml2.so)
+ELSE()
+ TARGET_LINK_LIBRARIES(createxmlfile /usr/arm/lib/libxml2/lib/libxml2.so)
+ENDIF()
 
