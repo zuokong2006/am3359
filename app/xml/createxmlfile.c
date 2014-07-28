@@ -53,7 +53,61 @@ int main(int argc, char *argv[])
     /* 设置根节点 */
     xmlDocSetRootElement(doc, rootnode);
 
-    /* todo... */
+    /* 创建子节点1 */
+    cur = xmlNewChild(rootnode, NULL, "items", NULL);
+    /* 添加子节点1属性 */
+    xmlSetProp(cur, "id", "1");
+    /* 创建孙节点1 */
+    curchildren = xmlNewChild(cur, NULL, "item", NULL);
+    xmlSetProp(curchildren, "id", "1");
+    xmlSetProp(curchildren, "steps", "100");
+    xmlSetProp(curchildren, "opt", "1");
+    /* 创建孙节点2 */
+    curchildren = xmlNewChild(cur, NULL, "item", NULL);
+    xmlSetProp(curchildren, "id", "2");
+    xmlSetProp(curchildren, "steps", "50");
+    xmlSetProp(curchildren, "opt", "2");
+
+    /* 创建子节点2 */
+    cur = xmlNewChild(rootnode, NULL, "items", NULL);
+    /* 添加子节点1属性 */
+    xmlSetProp(cur, "id", "2");
+
+    /* 创建子节点3 */
+    cur = xmlNewChild(rootnode, NULL, "items", NULL);
+    /* 添加子节点3属性 */
+    xmlSetProp(cur, "id", "3");
+    /* 创建孙节点1 */
+    curchildren = xmlNewChild(cur, NULL, "item", NULL);
+    xmlSetProp(curchildren, "id", "1");
+    xmlSetProp(curchildren, "steps", "211");
+    xmlSetProp(curchildren, "opt", "4");
+    /* 创建孙节点2 */
+    curchildren = xmlNewChild(cur, NULL, "item", NULL);
+    xmlSetProp(curchildren, "id", "2");
+    xmlSetProp(curchildren, "steps", "555");
+    xmlSetProp(curchildren, "opt", "5");
+    /* 创建孙节点3 */
+    curchildren = xmlNewChild(cur, NULL, "item", NULL);
+    xmlSetProp(curchildren, "id", "3");
+    xmlSetProp(curchildren, "steps", "322");
+    xmlSetProp(curchildren, "opt", "6");
+    /* 创建孙节点4 */
+    curchildren = xmlNewChild(cur, NULL, "item", NULL);
+    xmlSetProp(curchildren, "id", "4");
+    xmlSetProp(curchildren, "steps", "456");
+    xmlSetProp(curchildren, "opt", "7");
+    /* 创建孙节点5 */
+    curchildren = xmlNewChild(cur, NULL, "item", NULL);
+    xmlSetProp(curchildren, "id", "5");
+    xmlSetProp(curchildren, "steps", "299");
+    xmlSetProp(curchildren, "opt", "8");
+    /* 创建孙节点6 */
+    curchildren = xmlNewChild(cur, NULL, "item", NULL);
+    xmlSetProp(curchildren, "id", "6");
+    xmlSetProp(curchildren, "steps", "96");
+    xmlSetProp(curchildren, "opt", "10");
+
 
     /* 存储xml文件 */
     res = xmlSaveFile(filedir, doc);
